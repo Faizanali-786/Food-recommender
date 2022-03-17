@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div id="category_hide" class="left-side d-flex flex-column  width-sidebar mx-1">
+    <div>
+        <h3 class="text-center bg-red py-2 font-weight-bold rounded-lg ">Menu</h3>
+    </div>
+    <a href="{% url 'home_page' %}" class="btn text-secondary py-2 my-1 hover-bg-danger ">Home</a>
+    <a href="{% url 'recommend_user' %}" class="btn text-secondary py-2 my-1 hover-bg-danger ">Recommended</a>
+    <a href="{% url 'logged_out' %}" class="btn text-secondary py-2 my-1 hover-bg-danger ">Log Out</a>
+    <div>
+        <h3 class="text-center bg-red py-2 font-weight-bold rounded-lg ">Categories</h3>
+    </div>
+    {% for cat in category %}
+    <a href="{% url 'cat_id' id=cat.id %}" id="cat{{cat.id}}"
+        class="btn text-secondary py-2 my-1 hover-bg-danger  ">{{cat.name}}</a>
+    {% endfor %}
+</div>
+<div id="items_hide" style="height: 32rem;background-color: rgb(228, 48, 48);"
+    class="container-fluid center-side border border-secondary w-50 overflow-auto border-2 rounded-lg">
+    <div class="d-flex justify-content-end px-2">
+        <button class="btn hover-bg-danger"><i class="bi bi-grid-1x2-fill"></i></button>
+        <button class="btn hover-bg-danger"><i class="bi bi-grid-3x3-gap-fill"></i></button>
+    </div>
+
+    <div class="mx-auto container-fluid w-100  row  ">
+        <!-- <div class="d-flex "> -->
+        {% for fooditem in items %}
+        <div id="food{{fooditem.id}}" style="width:8.2rem !important;"
+            class="  mx-auto m-2 d-flex flex-column  py-2 justify-content-center align-items-center bg-white rounded-lg">
+            <!-- <input hidden type="number"> -->
+            <h6 name="food_price" class="text-dark  mx-4 px-1 ">{{fooditem.price}}Rs</h6>
+            <img src="{{fooditem.image}}" class=" mx-4 img-fluid rounded-circle" width="60" alt="Food Image">
+            <div class="d-flex flex-column mx-auto align-items-center mt-2">
+                <h6 name="fod_name" class="text-dark   ">{{fooditem.name}}</h6>
+            </div>
+            <button id="{{fooditem.id}}"  type="submit" id="cart_btn" onclick="GFG_click(this.id);"
+                value="{{fooditem.price}}" class="btn btn-success   ">Add to Cart</button>
+        </div>
+        {% endfor %}
+        <!-- </div> -->
+
+    </div>
+</div>
+
+
+
+{% endblock %}
